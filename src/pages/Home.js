@@ -1,41 +1,84 @@
-import React, { useState } from 'react'; 
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'; 
+import Navbar from '../components/Navbar';
+import { AiOutlinePlusCircle } from 'react-icons/ai'
+import TaskTile from '../components/TaskTile';
 
 const Home=() =>{
 
-  const[mobMenu, setMobMenu] = useState(false)
+  const[tasks, setTasks] = useState([]);
+  const[tasky, setTasky] = useState([]);
 
-  const showMenu = 'block absolute top-14 border-b bg-white w-full p-2';
-  const hideMenu = 'hidden md:flex flex text-gray-500 text-base';
+  useEffect(() => {
+
+    const list = [
+      {
+        id: '1',
+        title: 'This is the first task',
+      }, 
+      {
+        id: '2',
+        title: 'This is the second task',
+      }, 
+      {
+        id: '3',
+        title: 'This is the third task',
+      }, 
+      {
+        id: '4',
+        title: 'This is the fourth task',
+      }, 
+      {
+        id: '5',
+        title: 'This is the fifth task',
+      }, 
+      {
+        id: '6',
+        title: 'This is the sixth task',
+      }, 
+      {
+        id: '7',
+        title: 'This is the seventh task',
+      }, 
+    ]
+
+    setTasks(list)
+
+  }, []);
+
+  const handleAdd = () => {
+    console.log(tasky)
+    setTasks([...tasks, {id: '8', title: 'This is the eighth'}])
+    console.log(tasky)
+  }
+
+  // const removeTask = () => {
+  //   const objy = tasks.findIndex((obj) => obj.id === id);
+  //   tasks.splice(objy, 1);
+  //   return tasks;
+  // }
+
+
   return (
-    <nav className="border-b bg-gray-100">
-      <div x-data="{showMenu : false}" className="container max-w-screen-lg mx-auto flex justify-between h-14">
-        <div className="container max-w-screem-lg mx-auto flex justify-between h-14">
-          {/* BRAND  */}
-          <a href="#" className='flex items-center cursor-pointer hover:bg-purple-50 px-2 ml-3'>
-            {/* LOGO  */}
-              <div className="rounded bg-purple-400 text-white font-bold w-10 h-10 flex justify-center text-3xl pt-0.5">T</div>
-              <div className="text-gray-700 font-semibold ml-2">To Do</div>
-          </a>
-          {/* NAVBAR TOGGLE BUTTON  */}
+    <div className='h-screen w-full bg-sky-300'>
+      <Navbar />
+      <div className='px-48 pb-4s'>
+        <div className=' w-full h-10 flex items-center mt-4'>
           <button
-          onClick={() => setMobMenu(!mobMenu)} 
-          className="block md:hidden text-gray-700 p-2 rounded hover:border focus:border focus:bg-gray-100 my-2 mr-5" 
-          type="button" aria-controls="navbar-main" aria-expanded="false" aria-label="Toggle navigation">
-              <svg className="w-5 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-          </button>
-          {/* NAV LINKS */}
-          <ul className={mobMenu ? showMenu : hideMenu}>
-            <li className="px-3 cursor-pointer hover:bg-purple-50 flex items-center hover:text-gray-800">
-              <Link to='/first'>Link One</Link>
-            </li>
-            <li className="px-3 cursor-pointer hover:bg-purple-50 flex items-center hover:text-gray-800">
-              <Link to='/second'>Link Two</Link>
-            </li>
-          </ul>
+          onClick={handleAdd}
+           className='text-sm font-bold flex flex-row items-center'><AiOutlinePlusCircle className='text-3xl'/>Add Task</button>
+        </div> 
+        <div className="px-20">
+          <h1 className='text-3xl font-bold mt-8 mb-3'>Tasks</h1>
+          {
+            tasks && tasks.map((task) => {
+              return <TaskTile task={task} key={task.id} />
+            })
+          }
+          {/* <TaskTile /> */}
         </div>
+
       </div>
-    </nav>
+    </div>
   )
 }
 
