@@ -12,7 +12,14 @@ const Login=() =>{
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    navigate("/dashboard")
+    navigate("/home")
+    // alert('Alert');
+    // alert(password);
+
+
+    
+    // console.log(email)
+    // console.log(password)
   }
   return (
 
